@@ -16,14 +16,21 @@ class Bank():
             with open(path, "r") as file:
                 contents = csv.DictReader(file)
                 for row in contents:
-                    row.pop("id", None)  # safely drop 'id' 
+                    row.pop("id", None)  # drop id to insert mine
                     self.accounts.append(Customer(self.next_id, **row))
                     self.next_id += 1
                     # self.accounts.append(Customer(1,**row[1:])) #will print: {'Name': 'The First Doctor', 'Actor': 'William Hartnell', 'Number of Episodes': '134'}
         except csv.Error as e:
             print(e)
     
-    def to_csv(self, path):
+    def to_csv(self, customer):
+        fieldnames = ["id", "first_name", "last_name", "password","checking", "savings", "active", "overdraft_count"]
+        try:
+            with open("bank_customers.csv", "a+",newline="") as csvfile:
+                writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+                writer.writerow(customer.to_dict())
+        except csv.Error as e:
+            print(e)
         pass
 
 
@@ -33,8 +40,8 @@ class Bank():
         last_name = input("Enter last Name: ")
         pswrd = input("Enter Password: ")
         type_acc = -1
-        checking = savings = None
-        while checking == None and savings == None:
+        checking = savings = 'None'
+        while checking == 'None' and savings == 'None':
             type_acc = input('Type of Account :\n1- Checking\n2- Savings\n3- Both\nSelect (1-3): ')
             if type_acc == '3':
                 checking = 0
@@ -46,6 +53,7 @@ class Bank():
             else: print('Invalid Input')
         self.accounts.append(Customer(id,first_name,last_name,
                                       pswrd,checking,savings,))
+        self.to_csv(self.accounts[-1])
         print(f"Account Created!! Your account ID is {id}")
         pass
     

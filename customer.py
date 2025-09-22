@@ -12,7 +12,19 @@ class Customer():
         self.active = active
         self.overdraft_draft = overdraft_count
         pass
-
+    
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "password": self.password,
+            "checking": self.checking,
+            "savings": self.savings,
+            "active": self.active,
+            "overdraft_count": self.overdraft_draft
+        }
+    
     def __str__(self):
         return  f"""Customer[{self.id}] {self.first_name} {self.last_name}
           Active: {self.active}, Overdrafts: {self.overdraft_draft}
