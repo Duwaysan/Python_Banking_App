@@ -22,6 +22,9 @@ class Bank():
                     # self.accounts.append(Customer(1,**row[1:])) #will print: {'Name': 'The First Doctor', 'Actor': 'William Hartnell', 'Number of Episodes': '134'}
         except csv.Error as e:
             print(e)
+    
+    def to_csv(self, path):
+        pass
 
 
     def create_account(self):
@@ -29,7 +32,6 @@ class Bank():
         first_name = input("Enter First Name: ")
         last_name = input("Enter last Name: ")
         pswrd = input("Enter Password: ")
-        # print("Type of Accounts:\n1- Checking\n2- Savings\n3- Both")
         type_acc = -1
         checking = savings = None
         while checking == None and savings == None:
@@ -54,11 +56,11 @@ class Bank():
         # print(user.password)
         # print(password)
         if str(user.password) == str(password):
-            print(10*'*',f'Welcome {user.first_name} {user.last_name}')
-            print('1- Withdraw')
-            print('2- Deposit')
-            print('3- Transfer')
-            print('4- Log out\nSelect (1-4): ')
+            # print(10*'*',f'Welcome {user.first_name} {user.last_name}')
+            # print('1- Withdraw')
+            # print('2- Deposit')
+            # print('3- Transfer')
+            # print('4- Log out\nSelect (1-4): ')
             return user
         print('Your ID or Password are not correct!')
         return False
