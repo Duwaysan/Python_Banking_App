@@ -3,6 +3,7 @@ from customer import Customer
 
 class Bank():
     fieldnames = ["id","first_name", "last_name", "password", "checking", "savings", "active", "overdraft_count"]
+    id = 0
 
     def __init__(self, path=None):
         self.accounts = []
@@ -10,6 +11,17 @@ class Bank():
         if path:
             self.from_csv(path)
         pass
+    
+    import csv
+
+    def update_customers(self, filename="bank_customers.csv"):
+        fieldnames = ["id", "first_name", "last_name", "password",
+                      "checking", "savings", "active", "overdraft_count"]
+
+        with open(filename, "w", newline="") as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows([cust.to_dict() for cust in self.accounts])
 
     def from_csv(self,path):
         try: 
@@ -61,8 +73,6 @@ class Bank():
         id = int(input('Account ID: '))
         password = input('Password: ')
         user = self.accounts[id-1]
-        # print(user.password)
-        # print(password)
         if str(user.password) == str(password):
             # print(10*'*',f'Welcome {user.first_name} {user.last_name}')
             # print('1- Withdraw')

@@ -12,6 +12,15 @@ class Customer():
         self.active = active
         self.overdraft_draft = overdraft_count
         pass
+
+    def open_sec_acc(self):
+        if self.savings == 'None':
+            self.savings = 0
+        elif self.checking == 'None':
+            self.checking = 0
+        else:
+            return False
+        return True
     
     def to_dict(self):
         return {

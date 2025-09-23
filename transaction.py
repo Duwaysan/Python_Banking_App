@@ -1,6 +1,7 @@
 
 
-# class Transaction:
+class Transaction:
+
 #     @classmethod
 #     def decide_transaction(cls,selection,amount,acc_type,src, dist=None):
 #         if selection == "1":
@@ -11,9 +12,20 @@
 #             cls.transfer()
 
 
-#     @classmethod
-#     def withdraw(cls,selection,amount,acc_type,src):
-#         print("test withdraw")
+    @classmethod
+    def withdraw(cls,customer,acc_typ):
+        
+        if acc_typ == '1':
+            print(f'Current Balance {customer.checking}')
+            amount = int(input('Enter Withdrawal Amount'))
+            if (customer.checking < amount):
+                print('Insufficient funds! Withdrawal denied.')
+            else:
+                customer.checking -= amount
+                print(f'Withdrawal seccessful. New balance {customer.checking}')
+        else: 
+            print(f'Current Balance {customer.savings}')
+        
         
 #     @classmethod
 #     def deposit(cls,selection,amount,acc_type,src):
