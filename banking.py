@@ -54,6 +54,7 @@ class Banking():
             if selection == '1':
                 print(30*'=')
                 Transaction.withdraw(customer,acc_typ)
+                
     @classmethod
     def accounts_menu(cls,customer):
         

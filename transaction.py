@@ -18,7 +18,7 @@ class Transaction:
         if acc_typ == '1':
             print(f'Current Balance {customer.checking}')
             amount = int(input('Enter Withdrawal Amount'))
-            if (customer.checking < amount):
+            if (customer.checking - amount < 65):
                 print('Insufficient funds! Withdrawal denied.')
             else:
                 customer.checking -= amount
