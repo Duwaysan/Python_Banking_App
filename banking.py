@@ -13,20 +13,14 @@ class Banking():
         while True:
             while (choice != '3'):
                 choice = Banking.main_menu()
-                print(type(py_bank.accounts[12].overdraft_count))
+                # print(type(py_bank.accounts[12].overdraft_count))
 
                 if choice == '1': 
-                    customer = py_bank.sign_in()
+                    customer = py_bank.sign_in() #returns object customer
                     if (customer):
                         acc_type = self.accounts_menu(customer)
-                        # print(customer.savings,'line 21')
-                        # customer.savings += 500
-                        # print(py_bank.accounts[-1],'line 23')
-                        # print(customer,'line 24')
                         py_bank.update_customers()
-                        Banking.transaction_menu(customer,acc_type)
-                        py_bank.update_customers()
-
+                        Banking.transaction_menu(customer,acc_type,py_bank)
                 elif choice == '2':
                     py_bank.create_account()
                 elif choice != '3':
@@ -34,8 +28,8 @@ class Banking():
             print('\t\tGoodBye Comeback Again!')
 
 
-            for acc in py_bank.accounts:
-                print(acc)
+            # for acc in py_bank.accounts:
+            #     print(acc)
         pass
     @classmethod
     def main_menu(cls):
@@ -45,8 +39,14 @@ class Banking():
         return input('Select (1-3): ')
     
     @classmethod
-    def transaction_menu(cls,customer,acc_typ):
-            print(10*'*',f'Welcome',10*'*')
+    def transaction_menu(cls,customer,acc_typ,bank):
+        selection=None
+        while selection != '4':
+            print(10*'*','Welcome',10*'*')
+            if acc_typ == '1':
+                print(9*'*',f'Balance: {customer.checking}',9*'*')
+            if acc_typ == '2':
+                print(9*'*',f'Balance: {customer.savings}',9*'*')
             print('1- Withdraw')
             print('2- Deposit')
             print('3- Transfer')
@@ -57,6 +57,9 @@ class Banking():
                 Transaction.withdraw(customer,acc_typ)
             if selection == '2':
                 Transaction.deposit(customer,acc_typ)
+            if selection == '3':
+                Transaction.transfer(customer,acc_typ,bank)
+            bank.update_customers()
             
 
     @classmethod

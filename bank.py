@@ -2,6 +2,7 @@ import csv
 from customer import Customer
 
 class Bank():
+    import csv
     fieldnames = ["id","first_name", "last_name", "password", "checking", "savings", "active", "overdraft_count"]
     id = 0
 
@@ -12,7 +13,6 @@ class Bank():
             self.from_csv(path)
         pass
     
-    import csv
 
     def update_customers(self, filename="bank_customers.csv"):
         fieldnames = ["id", "first_name", "last_name", "password",

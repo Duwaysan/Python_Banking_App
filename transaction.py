@@ -43,7 +43,7 @@ class Transaction:
                     print(f'Withdrawal seccessful. New balance {account}')
             else:
                 print('You can withdraw (1 - 100)$ !')
-        else: print(f'Your account is inactive, deposit {-1*account}$ to activate it')
+        else: print(f'Your account is inactive, deposit moeny to activate it')
         return account
 
         
@@ -53,7 +53,7 @@ class Transaction:
             customer.checking = cls.deposit_implem(customer.checking)
         if acc_type == '2':
             customer.savings = cls.deposit_implem(customer.savings)
-        if customer.savings >= 0 and customer.checking >= 0:
+        if (customer.savings == 'None' or customer.savings >= 0)and ( customer.checking == 'None' or customer.checking >= 0):
             customer.overdraft_count = 0
             customer.active = True
         pass
@@ -64,14 +64,40 @@ class Transaction:
         amount = int(input('Enter Deposit Amount: '))
         if (amount>0):
             account += amount
+            print(f'Deposit seccessful. New balance {account}')
         else: print('You can deposit positive numbers only!')
         return account
 
     @classmethod
-    def transfer(cls,selection,amount,acc_type,src, dist=None):
+    def transfer(cls,customer,acc_type,bank):
+        # if acc_type = '1':
+            
+
+
 
         pass
 
+    def transfer_implem(cls,customer,account,bank):
+        if customer.active:
+            dist_id = int(input("Enter Recipient's ID: "))
+            amount = int(input("Enter Amount of money: "))
+            if account < amount :
+                print(f'Insufficient funds! Withdrawal denied.\nYour Balance: {account}')
+            else:
+                cls.check_recipient_accounts(dist_id,bank)
+        else: print(f'Your account is inactive, deposit money to activate it')
+
+    def check_recipient_accounts(self,id,bank):
+        recipient = bank.accounts[id-1]
+        if recipient.checking != 'None' and recipient.savings != 'None':
+            print(f"Which account of {recipient.first_name} {recipient.last_name} you want to transfer to?")
+            print('1- Checking Account')
+            print('2- Savings Account')
+            input('Select (1-2): ')
+
+
+
+    
 
 
 
