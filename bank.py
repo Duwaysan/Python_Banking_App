@@ -23,17 +23,30 @@ class Bank():
             writer.writeheader()
             writer.writerows([cust.to_dict() for cust in self.accounts])
 
-    def from_csv(self,path):
-        try: 
-            with open(path, "r") as file:
-                contents = csv.DictReader(file)
-                for row in contents:
-                    row.pop("id", None)  # drop id to insert mine
-                    self.accounts.append(Customer(self.next_id, **row))
+    # def from_csv(self,path):
+    #     try: 
+    #         with open(path, "r") as file:
+    #             contents = csv.DictReader(file)
+    #             for row in contents:
+    #                 row.pop("id", None)  # drop id to insert mine
+    #                 self.accounts.append(Customer(self.next_id, **row))
+    #                 self.next_id += 1
+    #                 # self.accounts.append(Customer(1,**row[1:])) #will print: {'Name': 'The First Doctor', 'Actor': 'William Hartnell', 'Number of Episodes': '134'}
+    #     except csv.Error as e:
+    #         print(e)
+
+    def from_csv(self, path):
+        try:
+            with open(path, "r", newline="") as file:
+                reader = csv.DictReader(file)
+                for row in reader:
+                    # ignore CSV's own id column, use our self.next_id
+                    row.pop("id", None)
+                    cust = Customer.from_csv_row(self.next_id, row)
+                    self.accounts.append(cust)
                     self.next_id += 1
-                    # self.accounts.append(Customer(1,**row[1:])) #will print: {'Name': 'The First Doctor', 'Actor': 'William Hartnell', 'Number of Episodes': '134'}
         except csv.Error as e:
-            print(e)
+            print(f"CSV error while reading {path}: {e}")
     
     def to_csv(self, customer):
         fieldnames = ["id", "first_name", "last_name", "password","checking", "savings", "active", "overdraft_count"]

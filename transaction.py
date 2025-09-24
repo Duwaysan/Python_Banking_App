@@ -14,28 +14,63 @@ class Transaction:
 
     @classmethod
     def withdraw(cls,customer,acc_typ):
+            if acc_typ == '1':
+                customer.checking = cls.withdraw_implem(customer,customer.checking)
+            if acc_typ == '2':
+               customer.savings = cls.withdraw_implem(customer, customer.savings)
         
-        if acc_typ == '1':
-            print(f'Current Balance {customer.checking}')
-            amount = int(input('Enter Withdrawal Amount'))
-            if (customer.checking - amount < 65):
-                print('Insufficient funds! Withdrawal denied.')
+
+    @classmethod
+    def withdraw_implem(cls,customer,account):
+        fee = 35
+        max_withdrawal = 100 
+        min_withdrawal = 1
+        if (customer.active):
+            print(f'Current Balance {account}')
+            amount = int(input('Enter Withdrawal Amount: '))
+            if (amount<=max_withdrawal and amount>=min_withdrawal):
+                if ((account - amount - fee) < -100):
+                    print(f'Insufficient funds! Withdrawal denied.\nYour Balance: {account}')
+                else:
+                    account -= amount
+                    if (account< 0):
+                        account -= fee
+                        customer.overdraft_count +=1
+                        if customer.overdraft_count == 2: 
+                            customer.active = False
+                            print(f'You have 2 overdrafts\nYour account has been decactivated!')
+    
+                    print(f'Withdrawal seccessful. New balance {account}')
             else:
-                customer.checking -= amount
-                print(f'Withdrawal seccessful. New balance {customer.checking}')
-        else: 
-            print(f'Current Balance {customer.savings}')
+                print('You can withdraw (1 - 100)$ !')
+        else: print(f'Your account is inactive, deposit {-1*account}$ to activate it')
+        return account
+
         
-        
-#     @classmethod
-#     def deposit(cls,selection,amount,acc_type,src):
+    @classmethod
+    def deposit(cls,customer,acc_type):
+        if acc_type == '1':
+            customer.checking = cls.deposit_implem(customer.checking)
+        if acc_type == '2':
+            customer.savings = cls.deposit_implem(customer.savings)
+        if customer.savings >= 0 and customer.checking >= 0:
+            customer.overdraft_count = 0
+            customer.active = True
+        pass
 
-#         pass
+    @classmethod   
+    def deposit_implem(cls, account):
+        print(f'Current Balance {account}')
+        amount = int(input('Enter Deposit Amount: '))
+        if (amount>0):
+            account += amount
+        else: print('You can deposit positive numbers only!')
+        return account
 
-#     @classmethod
-#     def transfer(cls,selection,amount,acc_type,src, dist=None):
+    @classmethod
+    def transfer(cls,selection,amount,acc_type,src, dist=None):
 
-#         pass
+        pass
 
 
 

@@ -13,6 +13,7 @@ class Banking():
         while True:
             while (choice != '3'):
                 choice = Banking.main_menu()
+                print(type(py_bank.accounts[12].overdraft_count))
 
                 if choice == '1': 
                     customer = py_bank.sign_in()
@@ -23,8 +24,8 @@ class Banking():
                         # print(py_bank.accounts[-1],'line 23')
                         # print(customer,'line 24')
                         py_bank.update_customers()
-                        
                         Banking.transaction_menu(customer,acc_type)
+                        py_bank.update_customers()
 
                 elif choice == '2':
                     py_bank.create_account()
@@ -51,10 +52,13 @@ class Banking():
             print('3- Transfer')
             print('4- Log out')
             selection = input('Select (1-4): ')
+            print(30*'=')
             if selection == '1':
-                print(30*'=')
                 Transaction.withdraw(customer,acc_typ)
-                
+            if selection == '2':
+                Transaction.deposit(customer,acc_typ)
+            
+
     @classmethod
     def accounts_menu(cls,customer):
         
