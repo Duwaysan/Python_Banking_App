@@ -1,6 +1,6 @@
 import csv
 from customer import Customer
-
+from termcolor import colored
 class Bank():
     import csv
     fieldnames = ["id","first_name", "last_name", "password", "checking", "savings", "active", "overdraft_count"]
@@ -67,7 +67,9 @@ class Bank():
         type_acc = -1
         checking = savings = 'None'
         while checking == 'None' and savings == 'None':
-            type_acc = input('Type of Account :\n1- Checking\n2- Savings\n3- Both\nSelect (1-3): ')
+            print('Type of Account :\n1- Checking\n2- Savings\n3- Both')
+            type_acc = input(colored('Select (1-3): ','green'))
+            print(20*'=')
             if type_acc == '3':
                 checking = 0
                 savings = 0
@@ -83,16 +85,16 @@ class Bank():
         pass
     
     def sign_in(self):
-        id = int(input('Account ID: '))
-        password = input('Password: ')
-        user = self.accounts[id-1]
-        if str(user.password) == str(password):
-            # print(10*'*',f'Welcome {user.first_name} {user.last_name}')
-            # print('1- Withdraw')
-            # print('2- Deposit')
-            # print('3- Transfer')
-            # print('4- Log out\nSelect (1-4): ')
-            return user
-        print('Your ID or Password are not correct!')
+        id = 100000
+        while id > len(self.accounts):
+            id = int(input('Account ID: '))
+            password = input('Password: ')
+            if id-1 < len(self.accounts):
+                user = self.accounts[id-1]
+
+                if str(user.password) == str(password):
+                    return user
+            else:
+                print('Your ID or Password are not correct!')
         return False
 

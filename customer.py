@@ -42,7 +42,7 @@ class Customer():
     @classmethod
     def from_csv_row(cls, new_id, row: dict):
         def int_or_none(v):
-            return None if v in (None, "", "None") else int(v)
+            return "None" if v in (None, "", "None") else int(v)
 
         def int_or_zero(v):
             return 0 if v in (None, "", "None") else int(v)
