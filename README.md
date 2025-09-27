@@ -25,7 +25,7 @@ cd Python_Banking_app.git
 python3 Banking.py
 ```
 
-##App Functionality
+## App Functionality
 
 | Feature             | Description                                                                 |
 |---------------------|-----------------------------------------------------------------------------|
